@@ -36,5 +36,5 @@ const deleteUser = async (ph_number) => {
     return result;
 };
 
-module.exports = deleteProblem;
-module.exports = deleteUser;
+exports.deleteProblem = deleteProblem;
+exports.deleteUser = deleteUser;

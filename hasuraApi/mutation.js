@@ -2,6 +2,7 @@ const graphqlrequest = require('graphql-request');
 const GraphQLClient = graphqlrequest.GraphQLClient;
 
 const addProblem = async (description, location, title, first_name, last_name, email, address, ph_number, userid) => {
+    // console.log('called add problem1');
     const client = new GraphQLClient('https://problem-portal.herokuapp.com/v1/graphql', {
         headers: {
             'content-type': 'application/json',
@@ -15,7 +16,12 @@ const addProblem = async (description, location, title, first_name, last_name, e
         }
         `;
     let result = await client.request(query)
-        .then(data => {return data})
+        .then(data => {
+            // console.log('done');
+            // console.log('called add problem');
+            console.log(data);
+            return data
+        })
         .catch((err) => { return err });
     return result;
 };
@@ -33,10 +39,10 @@ const addUser = async (address, email, first_name, last_name, ph_number) => {
         }
         `;
     let result = await client.request(query)
-        .then(data => {return data})
+        .then(data => { return data })
         .catch((err) => { return err });
     return result;
 };
-
-module.exports = addProblem;
-module.exports = addUser;
+// addProblem("test", "test", "test", "test", "test", "test", "test", 123, 123)
+exports.addProblem = addProblem;
+exports.addUser = addUser;

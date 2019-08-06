@@ -38,5 +38,5 @@ const updateUser = async (ph_number) => {
     return result;
 };
 
-module.exports = updateProblem;
-module.exports = updateUser;
+exports.updateProblem = updateProblem;
+exports.updateUser = updateUser;
