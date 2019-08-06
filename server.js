@@ -1,12 +1,13 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser').json()
+
 const auth = require('./firebase_Auth/firebaseApi');
-// const hasura = require('./hasuraApi/assemble');
 const query = require('./hasuraApi/query');
 const insert = require('./hasuraApi/mutation');
 const del = require('./hasuraApi/delete');
 const update = require('./hasuraApi/update');
+const sms = require('./sms/sendsms');
 
 const port = 8080 | process.env.PORT;
 
@@ -138,6 +139,18 @@ app.post('/api/data/update/user', bodyParser, async (req, res) => {
         res.json(err);
     }
 });
+
+app.post('/api/notification/sms', bodyParser, async (req, res) => {
+    message = req.body.message;
+    ph_number = req.body.ph_number;
+    try {
+        let result = await sms.sendsms(message, ph_number);
+        await res.json(result.data.Status);
+    } catch (error) {
+        res.json(error);
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
