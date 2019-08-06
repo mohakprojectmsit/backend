@@ -111,6 +111,33 @@ app.post('/api/data/delete/:fn', bodyParser, async (req, res) => {
         res.json(err);
     }
 });
+app.post('/api/data/update/problems', bodyParser, async (req, res) => {
+    title = req.body.title;
+    description = req.body.description;
+    location = req.body.location;
+    var result;
+    try {
+        result = await update.updateProblem(title, description, location);
+        res.json(result);
+    } catch (err) {
+        res.json(err);
+    }
+});
+app.post('/api/data/update/user', bodyParser, async (req, res) => {
+    ph_number = req.body.ph_number;
+    ph_number_new = req.body.ph_number_new;
+    address = req.body.address;
+    email = req.body.email;
+    first_name = req.body.first_name;
+    last_name = req.body.last_name;
+    var result;
+    try {
+        result = await update.updateUser(ph_number, address, email, first_name, last_name, ph_number_new);
+        res.json(result);
+    } catch (err) {
+        res.json(err);
+    }
+});
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
