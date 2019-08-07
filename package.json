@@ -27,6 +27,7 @@
     "graphql": "^14.4.2",
     "graphql-request": "^1.8.2",
     "graphql-tag": "^2.10.1",
+    "nodemailer": "^6.3.0",
     "subscriptions-transport-ws": "^0.9.16",
     "uuid": "^3.3.2"
   }

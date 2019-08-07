@@ -8,6 +8,7 @@ const insert = require('./hasuraApi/mutation');
 const del = require('./hasuraApi/delete');
 const update = require('./hasuraApi/update');
 const sms = require('./sms/sendsms');
+const email = require('./email/sendemail');
 
 const port = 8080 | process.env.PORT;
 
@@ -39,7 +40,6 @@ app.post('/api/data/query/:fn', bodyParser, async (req, res) => {
     console.log(fn);
     var data;
     try {
-        // let data = insert.addproblem(description, location, title, first_name, last_name, email, address, ph_number, userid);
         if (fn == 1) {
             console.log('fn 1');
             data = await query.getUser(datafetch);
@@ -75,7 +75,6 @@ app.post('/api/data/insert/problem', bodyParser, async (req, res) => {
     var data;
     try {
         data = await insert.addProblem(description, location, title, first_name, last_name, email, address, ph_number, userid);
-        // console.log(`data ${data}`);
         res.send(data);
     } catch (err) {
         res.json(err);
@@ -146,6 +145,18 @@ app.post('/api/notification/sms', bodyParser, async (req, res) => {
     try {
         let result = await sms.sendsms(message, ph_number);
         await res.json(result.data.Status);
+    } catch (error) {
+        res.json(error);
+    }
+});
+app.post('/api/notification/email', bodyParser, async (req, res) => {
+    message = req.body.message;
+    sendto = req.body.sendto;
+    subject = req.body.subject;
+    var result;
+    try {
+        result = await email.sendmail(sendto, subject, message);
+        res.json(result);
     } catch (error) {
         res.json(error);
     }
