@@ -14,10 +14,11 @@ const fileupload = require('./fileupload/upload');
 const port = 8080 | process.env.PORT;
 
 app.post('/api/auth/login', bodyParser, async (req, res) => {
-    email = req.body.email;
-    password = req.body.password;
+    var email = req.body.email;
+    var password = req.body.password;
+    var user;
     try {
-        let user = await auth.signin(email, password);
+        user = await auth.signin(email, password);
         res.send(user);
     } catch (error) {
         console.log(error);
@@ -25,10 +26,11 @@ app.post('/api/auth/login', bodyParser, async (req, res) => {
 });
 
 app.post('/api/auth/signup', bodyParser, async (req, res) => {
-    email = req.body.email;
-    password = req.body.password;
+    var email = req.body.email;
+    var password = req.body.password;
+    var user;
     try {
-        let user = await auth.signup(email, password);
+        user = await auth.signup(email, password);
         res.send(user);
     } catch (error) {
         console.log(error);
@@ -36,8 +38,8 @@ app.post('/api/auth/signup', bodyParser, async (req, res) => {
 });
 
 app.post('/api/data/query/:fn', bodyParser, async (req, res) => {
-    datafetch = req.body.data;
-    fn = req.params.fn;
+    var datafetch = req.body.data;
+    var fn = req.params.fn;
     console.log(fn);
     var data;
     try {
@@ -64,15 +66,15 @@ app.post('/api/data/query/:fn', bodyParser, async (req, res) => {
 });
 
 app.post('/api/data/insert/problem', bodyParser, async (req, res) => {
-    description = req.body.description;
-    location = req.body.location;
-    title = req.body.title;
-    first_name = req.body.first_name;
-    last_name = req.body.last_name;
-    email = req.body.email;
-    address = req.body.address;
-    ph_number = req.body.ph_number;
-    userid = req.body.userid;
+    var description = req.body.description;
+    var location = req.body.location;
+    var title = req.body.title;
+    var first_name = req.body.first_name;
+    var last_name = req.body.last_name;
+    var email = req.body.email;
+    var address = req.body.address;
+    var ph_number = req.body.ph_number;
+    var userid = req.body.userid;
     var data;
     try {
         data = await insert.addProblem(description, location, title, first_name, last_name, email, address, ph_number, userid);
@@ -82,11 +84,11 @@ app.post('/api/data/insert/problem', bodyParser, async (req, res) => {
     }
 });
 app.post('/api/data/insert/user', bodyParser, async (req, res) => {
-    address = req.body.address;
-    email = req.body.email;
-    first_name = req.body.first_name;
-    last_name = req.body.last_name;
-    ph_number = req.body.ph_number;
+    var address = req.body.address;
+    var email = req.body.email;
+    var first_name = req.body.first_name;
+    var last_name = req.body.last_name;
+    var ph_number = req.body.ph_number;
     var data;
     try {
         data = await insert.addUser(address, email, first_name, last_name, ph_number);
@@ -96,8 +98,8 @@ app.post('/api/data/insert/user', bodyParser, async (req, res) => {
     }
 });
 app.post('/api/data/delete/:fn', bodyParser, async (req, res) => {
-    data = req.body.data;
-    fn = req.params.fn;
+    var data = req.body.data;
+    var fn = req.params.fn;
     var result;
     try {
         if (fn == 1) {
@@ -113,9 +115,9 @@ app.post('/api/data/delete/:fn', bodyParser, async (req, res) => {
     }
 });
 app.post('/api/data/update/problems', bodyParser, async (req, res) => {
-    title = req.body.title;
-    description = req.body.description;
-    location = req.body.location;
+    var title = req.body.title;
+    var description = req.body.description;
+    var location = req.body.location;
     var result;
     try {
         result = await update.updateProblem(title, description, location);
@@ -125,12 +127,12 @@ app.post('/api/data/update/problems', bodyParser, async (req, res) => {
     }
 });
 app.post('/api/data/update/user', bodyParser, async (req, res) => {
-    ph_number = req.body.ph_number;
-    ph_number_new = req.body.ph_number_new;
-    address = req.body.address;
-    email = req.body.email;
-    first_name = req.body.first_name;
-    last_name = req.body.last_name;
+    var ph_number = req.body.ph_number;
+    var ph_number_new = req.body.ph_number_new;
+    var address = req.body.address;
+    var email = req.body.email;
+    var first_name = req.body.first_name;
+    var last_name = req.body.last_name;
     var result;
     try {
         result = await update.updateUser(ph_number, address, email, first_name, last_name, ph_number_new);
@@ -141,8 +143,8 @@ app.post('/api/data/update/user', bodyParser, async (req, res) => {
 });
 
 app.post('/api/notification/sms', bodyParser, async (req, res) => {
-    message = req.body.message;
-    ph_number = req.body.ph_number;
+    var message = req.body.message;
+    var ph_number = req.body.ph_number;
     try {
         let result = await sms.sendsms(message, ph_number);
         await res.json(result.data.Status);
@@ -151,9 +153,9 @@ app.post('/api/notification/sms', bodyParser, async (req, res) => {
     }
 });
 app.post('/api/notification/email', bodyParser, async (req, res) => {
-    message = req.body.message;
-    sendto = req.body.sendto;
-    subject = req.body.subject;
+    var message = req.body.message;
+    var sendto = req.body.sendto;
+    var subject = req.body.subject;
     var result;
     try {
         result = await email.sendmail(sendto, subject, message);
@@ -163,7 +165,7 @@ app.post('/api/notification/email', bodyParser, async (req, res) => {
     }
 });
 app.post('/api/file/upload', bodyParser, async (req, res) => {
-    name = req.files.name; //name is property of input eg: <input type="file" name="my_profile_pic" />
+    var name = req.files.name; //name is property of input eg: <input type="file" name="my_profile_pic" />
     try {
         file = fileupload.upload(name, 'uuid for my new file + filename');
         console.log(file); //testing purpose

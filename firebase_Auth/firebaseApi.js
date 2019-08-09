@@ -26,7 +26,7 @@ const signup = async (email, password) => {
         if (user) {
             await onAuthStateChanged(userData);
             userData.user = user;
-            userData.status = 'in';
+            // // userData.status = 'in';
             return userData;
         }
     } catch (error) {
@@ -43,7 +43,7 @@ const signin = async (email, password) => {
             console.log('User is created!');
             await onAuthStateChanged(userData);
             userData.user = user;
-            userData.status = 'in';
+            // userData.status = 'in';
             return userData;
         } else {
             console.log('Unable to create user');
@@ -60,7 +60,7 @@ const signout = async () => {
     try {
         await firebase.auth().signOut();
         console.log("signed out");
-        userData.status = 'out';
+        // userData.status = 'out';
         await onAuthStateChanged(userData);
     } catch (error) {
         console.log(error);
@@ -113,7 +113,7 @@ const App = token => {
             cache: new InMemoryCache.InMemoryCache()
         });
     }
-    userData.status = 'in';
+    // userData.status = 'in';
 
     function createNewLink() {
         return split.split(
