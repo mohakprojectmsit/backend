@@ -9,6 +9,7 @@ const del = require('./hasuraApi/delete');
 const update = require('./hasuraApi/update');
 const sms = require('./sms/sendsms');
 const email = require('./email/sendemail');
+const fileupload = require('./fileupload/upload');
 
 const port = 8080 | process.env.PORT;
 
@@ -159,6 +160,17 @@ app.post('/api/notification/email', bodyParser, async (req, res) => {
         res.json(result);
     } catch (error) {
         res.json(error);
+    }
+});
+app.post('/api/file/upload', bodyParser, async (req, res) => {
+    name = req.files.name; //name is property of input eg: <input type="file" name="my_profile_pic" />
+    try {
+        file = fileupload.upload(name, 'uuid for my new file + filename');
+        console.log(file); //testing purpose
+        res.send(file);
+    } catch (err) {
+        console.log(err);
+        res.send(err);
     }
 });
 
