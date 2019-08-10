@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser').json()
+const cors = require('cors');
 
 const auth = require('./firebase_Auth/firebaseApi');
 const query = require('./hasuraApi/query');
@@ -12,6 +13,8 @@ const email = require('./email/sendemail');
 const fileupload = require('./fileupload/upload');
 
 const port = 8080 | process.env.PORT;
+
+app.use(cors());
 
 app.post('/api/auth/login', bodyParser, async (req, res) => {
     var email = req.body.email;
