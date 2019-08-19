@@ -66,6 +66,31 @@ const getUserid = async (ph_number) => {
         .catch((err) => { return err });
     return result;
 };
+const feed = async () => {
+    const query = `{{
+        problem(order_by: {time_of_upload: desc}) {
+            description
+            id
+            location_of_problem
+            time_of_upload
+            title
+            userid
+            }
+        }
+    }`
+
+    const client = new GraphQLClient('https://problem-portal.herokuapp.com/v1/graphql', {
+        headers: {
+            'content-type': 'application/json',
+            'x-hasura-admin-secret': 'problem-portal'
+        },
+    })
+    let result = await client.request(query)
+        .then(data => { return data })
+        .catch((err) => { return err });
+    return result;
+}
 exports.getProblemwithuser = getProblemwithuser;
 exports.getUser = getUser;
 exports.getUserid = getUserid;
+exports.feed = feed;

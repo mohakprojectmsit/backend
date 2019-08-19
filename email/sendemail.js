@@ -1,29 +1,31 @@
 const nodemailer = require('nodemailer');
 const log = console.log;
-const sendmail = async (sendto, subject, message) => {
-    const transporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
-        port: 587,
+
+const sendOurMail = (sendto, subject, message, res) => {
+
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
         auth: {
-            user: 'anita1@ethereal.email',
-            pass: 'mrUd748q2UmxXnRfyQ'
+            user: 'delhimohallasabha@gmail.com',
+            pass: 'msdelhi123'
         }
     });
+
     let mailOptions = {
-        from: 'anita1@ethereal.email',
+        from: 'delhimohallasabha@gmail.com',
         to: `${sendto}`,
         subject: `${subject}`,
         text: `${message}`
     };
-    let result = await transporter.sendMail(mailOptions, (err, data) => {
+
+    transporter.sendMail(mailOptions, (err, data) => {
         if (err) {
             log('Error occurs' + err);
-            return err;
+            res.send('ERROR');
         } else {
-            log(data);
-            return data;
+            log('SUCCESS');
+            res.send('SUCCESS');
         }
     });
-    return result;
 }
-exports.sendmail = sendmail;
+exports.sendOurMail = sendOurMail;

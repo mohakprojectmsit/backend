@@ -188,19 +188,11 @@ app.post('/api/notification/sms', bodyParser, async (req, res) => {
         res.json(error);
     }
 });
-app.post('/api/notification/email', bodyParser, async (req, res) => {
-    var message = req.body.message;
-    var sendto = req.body.sendto;
-    var subject = req.body.subject;
-    var result;
-    try {
-        result = await email.sendmail(sendto, subject, message);
-        result.status = 200;
-        res.json(result);
-    } catch (error) {
-        error = 401;
-        res.json(error);
-    }
+app.post('/api/notification/email', bodyParser, (req, res) => {
+    sendto = req.body.sendto;
+    sendmessage = req.body.message;
+    subjectmessage = req.body.subject;
+    email.sendOurMail(sendto, subjectmessage, sendmessage, res);
 });
 app.post('/api/file/upload', bodyParser, async (req, res) => {
     var name = req.files.name; //name is property of input eg: <input type="file" name="my_profile_pic" />
