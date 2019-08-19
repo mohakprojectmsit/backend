@@ -91,6 +91,54 @@ const querytype3 = (data) => {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(data);
 };
+const insertuser = (address, email, first_name, last_name, ph_number) => {
+    var data = JSON.stringify({
+        "address": `${address}`,
+        "email": `${email}`,
+        "first_name": `${first_name}`,
+        "last_name": `${last_name}`,
+        "ph_number": `${ph_number}`
+    });
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+            console.log(this.responseText);
+        }
+    });
+
+    xhr.open("POST", "http://localhost:8080/api/data/insert/user");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(data);
+};
+const insertproblem = (description, localhost, title, first_name, last_name, email, address, ph_number, userid) => {
+    var data = JSON.stringify({
+        "description": `${description}`,
+        "location": `${localhost}`,
+        "title": `${title}`,
+        "first_name": `${first_name}`,
+        "last_name": `${last_name}`,
+        "email": `${email}`,
+        "address": `${address}`,
+        "ph_number": `${ph_number}`,
+        "userid": `${userid}`
+    });
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+            console.log(this.responseText);
+        }
+    });
+
+    xhr.open("POST", "http://localhost:8080/api/data/insert/problem");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(data);
+}
 const sms = (message, ph_number) => {
     var data = JSON.stringify({
         "message": `${message}`,
@@ -128,8 +176,5 @@ const email = (message, sendto, subject) => {
 
     xhr.open("POST", "http://localhost:8080/api/notification/email");
     xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader("cache-control", "no-cache");
-    xhr.setRequestHeader("Postman-Token", "e7f06246-09ef-4706-982a-f0f2ec16dfc1");
-
     xhr.send(data);
 }

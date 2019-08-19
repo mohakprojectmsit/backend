@@ -33,12 +33,18 @@ const addUser = async (address, email, first_name, last_name, ph_number) => {
         },
     })
     const query = `mutation {
-        insert_user(objects: {address: "${address}", email: "${email}", first_name: "${first_name}", last_name: "${last_name}", ph_number: "${ph_number}"}) {
+        insert_user(objects: {address: "${address}", email: "${email}", first_name: "${first_name}", last_name: "${last_name}", ph_number: ${ph_number}}) {
             affected_rows
         }
         }
         `;
-    let result = await client.request(query)
+    const query2 = `mutation {
+  insert_user(objects: {address: "${address}", email: "${email}", first_name: "${first_name}", last_name: "${last_name}", ph_number: "${ph_number}"}) {
+    affected_rows
+  }
+}
+`;
+    let result = await client.request(query2)
         .then(data => { return data })
         .catch((err) => { return err });
     return result;

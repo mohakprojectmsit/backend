@@ -59,7 +59,7 @@ app.post('/api/data/query/:fn', bodyParser, async (req, res) => {
         if (fn == 2) {
             console.log('fn 2');
             data = await query.getProblemwithuser(datafetch);
-            data.status = 200;            
+            data.status = 200;
             res.send(data);
         }
         if (fn == 3) {
@@ -71,7 +71,7 @@ app.post('/api/data/query/:fn', bodyParser, async (req, res) => {
 
     } catch (error) {
         console.log(error);
-            error.status = 401;
+        error.status = 401;
         res.json(error);
     }
 });
@@ -91,8 +91,8 @@ app.post('/api/data/insert/problem', bodyParser, async (req, res) => {
         data = await insert.addProblem(description, location, title, first_name, last_name, email, address, ph_number, userid);
         data.status = 200;
         res.send(data);
-    } catch (err) {        
-        err.status = 401;        
+    } catch (err) {
+        err.status = 401;
         res.json(err);
     }
 });
@@ -102,6 +102,7 @@ app.post('/api/data/insert/user', bodyParser, async (req, res) => {
     var first_name = req.body.first_name;
     var last_name = req.body.last_name;
     var ph_number = req.body.ph_number;
+    console.log(ph_number);
     var data;
     try {
         data = await insert.addUser(address, email, first_name, last_name, ph_number);
