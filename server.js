@@ -63,8 +63,8 @@ app.post('/api/data/query/:fn', bodyParser, async (req, res) => {
             res.send(data);
         }
         if (fn == 3) {
-            console.log('fn 2');
-            data = await query.getUser(datafetch);
+            console.log('fn 3');
+            data = await query.getUserid(datafetch);
             data.status = 200;
             res.send(data);
         }
@@ -72,6 +72,17 @@ app.post('/api/data/query/:fn', bodyParser, async (req, res) => {
     } catch (error) {
         console.log(error);
         error.status = 401;
+        res.json(error);
+    }
+});
+
+app.post('/api/feed', bodyParser, async (req, res) => {
+    var data;
+    try {
+        data = await query.feed();
+        res.json(data);
+    } catch (error) {
+        error.status = 404;
         res.json(error);
     }
 });
