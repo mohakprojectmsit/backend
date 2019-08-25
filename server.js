@@ -11,6 +11,7 @@ const update = require('./hasuraApi/update');
 const sms = require('./sms/sendsms');
 const email = require('./email/sendemail');
 const fileupload = require('./fileupload/upload');
+const template = require('./email/emailtemplate');
 
 const port = 8080 | process.env.PORT;
 
@@ -100,7 +101,10 @@ app.post('/api/data/insert/problem', bodyParser, async (req, res) => {
     var data;
     try {
         data = await insert.addProblem(description, location, title, first_name, last_name, email, address, ph_number, userid);
-        data.status = 200;
+        // var texttosend = template.template(name, subject, description);
+        // console.log(texttosend);
+        // email.sendOurMail(sendto, subjectmessage, texttosend)
+        // data.status = 200;
         res.send(data);
     } catch (err) {
         err.status = 401;
@@ -192,7 +196,7 @@ app.post('/api/notification/email', bodyParser, (req, res) => {
     sendto = req.body.sendto;
     sendmessage = req.body.message;
     subjectmessage = req.body.subject;
-    email.sendOurMail(sendto, subjectmessage, sendmessage, res);
+    email.sendOurMail(sendto, subjectmessage, sendmessage);
 });
 app.post('/api/file/upload', bodyParser, async (req, res) => {
     var name = req.files.name; //name is property of input eg: <input type="file" name="my_profile_pic" />

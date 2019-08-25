@@ -1,8 +1,9 @@
 require('dotenv').config();
 const nodemailer = require('nodemailer');
 const log = console.log;
+const template = require('./emailtemplate');
 
-const sendOurMail = (sendto, subject, message, res) => {
+const sendOurMail = (sendto, subject, message) => {
 
     let transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -22,11 +23,10 @@ const sendOurMail = (sendto, subject, message, res) => {
     transporter.sendMail(mailOptions, (err, data) => {
         if (err) {
             log('Error occurs' + err);
-            res.send('ERROR');
         } else {
             log('SUCCESS');
-            res.send('SUCCESS');
         }
     });
 }
+
 exports.sendOurMail = sendOurMail;

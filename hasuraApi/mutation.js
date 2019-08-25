@@ -15,14 +15,15 @@ const addProblem = async (description, location, title, first_name, last_name, e
         }
         }
         `;
-    let result = await client.request(query)
+    var result = await client.request(query)
         .then(data => {
             // console.log('done');
             // console.log('called add problem');
             console.log(data);
-            return data
+            return data;
         })
         .catch((err) => { return err });
+    console.log(result);
     return result;
 };
 const addUser = async (address, email, first_name, last_name, ph_number) => {
@@ -44,7 +45,7 @@ const addUser = async (address, email, first_name, last_name, ph_number) => {
   }
 }
 `;
-    let result = await client.request(query2)
+    var result = await client.request(query2)
         .then(data => { return data })
         .catch((err) => { return err });
     return result;
