@@ -13,7 +13,7 @@ const sendOurMail = (sendto, subject, message, res) => {
     });
 
     let mailOptions = {
-        from: 'mohakprojectmsit@gmail.com',
+        from: process.env.EMAIL,
         to: `${sendto}`,
         subject: `${subject}`,
         text: `${message}`
