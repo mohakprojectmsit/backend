@@ -37,7 +37,7 @@ const login = (email, password) => {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(data);
 };
-const querytype1 = (data) => {
+const getUserData = (data) => {
     var data = JSON.stringify({
         "data": `${data}`
     });
@@ -55,7 +55,7 @@ const querytype1 = (data) => {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(data);
 };
-const querytype2 = (data) => {
+const getProblemWithUser = (data) => {
     var data = JSON.stringify({
         "data": `${data}`
     });
@@ -73,7 +73,7 @@ const querytype2 = (data) => {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(data);
 };
-const querytype3 = (data) => {
+const getUserId = (data) => {
     var data = JSON.stringify({
         "data": `${data}`
     });
