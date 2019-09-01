@@ -1,23 +1,3 @@
-const email = (message, sendto, subject) => {
-    var data = JSON.stringify({
-        "message": `${message}`,
-        "sendto": `${sendto}`,
-        "subject": `${subject}`
-    });
-
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-
-    xhr.addEventListener("readystatechange", function () {
-        if (this.readyState === 4) {
-            console.log(this.responseText);
-        }
-    });
-
-    xhr.open("POST", "http://localhost:8080/api/notification/email");
-    xhr.setRequestHeader("Content-Type", "application/json"); //optonal
-    xhr.send(data);
-};
 const login = (email, password) => {
     var data = JSON.stringify({
         "email": `${email}`,
