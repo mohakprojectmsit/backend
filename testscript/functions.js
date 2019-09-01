@@ -178,3 +178,19 @@ const email = (message, sendto, subject) => {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(data);
 }
+const feed = () => {
+    var data = null;
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+    if (this.readyState === 4) {
+        console.log(this.responseText);
+    }
+    });
+
+    xhr.open("POST", "http://localhost:8080/api/feed");
+
+    xhr.send(data);
+}

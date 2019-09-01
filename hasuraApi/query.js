@@ -67,17 +67,17 @@ const getUserid = async (ph_number) => {
     return result;
 };
 const feed = async () => {
-    const query = `{{
+    const query = `{
         problem(order_by: {time_of_upload: desc}) {
-            description
             id
             location_of_problem
             time_of_upload
             title
             userid
-            }
+            description
         }
-    }`
+    }
+    `
 
     const client = new GraphQLClient('https://problem-portal.herokuapp.com/v1/graphql', {
         headers: {
