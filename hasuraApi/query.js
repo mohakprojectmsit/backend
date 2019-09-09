@@ -1,7 +1,7 @@
 const graphqlrequest = require('graphql-request');
 const GraphQLClient = graphqlrequest.GraphQLClient;
 
-const getProblemwithuser = async (title) => {
+const getProblemwithuser = async (email) => {
     const client = new GraphQLClient('https://problem-portal.herokuapp.com/v1/graphql', {
         headers: {
             'content-type': 'application/json',
@@ -9,15 +9,14 @@ const getProblemwithuser = async (title) => {
         },
     })
     const query = `{
-    problem(where: {title: {_eq: "${title}"}}) {
-        description
-        id
+      ProblemUser(where: {email: {_eq: "${email}}}) {
+        category
         location_of_problem
-        time_of_upload
+        time
         title
-        userid
-    }
-}`;
+        description
+      }
+    }`;
     let result = await client.request(query)
         .then(data => { return data })
         .catch((err) => { return err });
@@ -31,15 +30,15 @@ const getUser = async (ph_number) => {
         },
     })
     const query = `{
-    user(where: {ph_number: {_eq: "${ph_number}"}}) {
-            id
-            address
-            email
-            first_name
-            last_name
-            ph_number
-        }
-    }`;
+      ProblemUser(where: {phone_number: {_eq: "${ph_number}"}}) {
+        address
+        email
+        first_name
+        last_name
+        phone_number
+      }
+    }
+    `;
     let result = await client.request(query)
         .then(data => {
             return data;
@@ -68,14 +67,16 @@ const getUserid = async (ph_number) => {
 };
 const feed = async () => {
     const query = `{
-        problem(order_by: {time_of_upload: desc}) {
-            id
-            location_of_problem
-            time_of_upload
-            title
-            userid
-            description
-        }
+      ProblemUser(limit: 10, order_by: {time: desc}) {
+        category
+        description
+        email
+        first_name
+        last_name
+        location_of_problem
+        phone_number
+        time
+      }
     }
     `
 

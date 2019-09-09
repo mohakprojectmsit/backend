@@ -91,18 +91,17 @@ app.post('/api/feed', bodyParser, async (req, res) => {
 app.post('/api/data/insert/problem', bodyParser, async (req, res) => {
     var description = req.body.description;
     var location = req.body.location;
+    var category = req.body.category;
     var title = req.body.title;
     var first_name = req.body.first_name;
     var last_name = req.body.last_name;
     var email = req.body.email;
     var address = req.body.address;
     var ph_number = req.body.ph_number;
-    var userid = req.body.userid;
     var data;
     try {
-        data = await insert.addProblem(description, location, title, first_name, last_name, email, address, ph_number, userid);
+        data = await insert.addProblem(description, location, category, title, first_name, last_name, email, address, ph_number);
         var texttosend = template.template(name, subject, description);
-        // console.log(texttosend);
         email.sendOurMail(sendto, subjectmessage, texttosend);
         data.status = 200;
         res.send(data);
@@ -128,33 +127,37 @@ app.post('/api/data/insert/user', bodyParser, async (req, res) => {
         res.json(err);
     }
 });
-app.post('/api/data/delete/:fn', bodyParser, async (req, res) => {
-    var data = req.body.data;
-    var fn = req.params.fn;
-    var result;
-    try {
-        if (fn == 1) {
-            result = await del.deleteProblem(data);
-            result.status = 200;
-            res.json(result);
-        }
-        if (fn == 2) {
-            result = await del.deleteUser(data);
-            result.status = 200;
-            res.json(result);
-        }
-    } catch (err) {
-        err.status = 401;
-        res.json(err);
-    }
-});
+
+//problems once uploaded will not be deleted
+
+// app.post('/api/data/delete/:fn', bodyParser, async (req, res) => {
+//     var data = req.body.data;
+//     var fn = req.params.fn;
+//     var result;
+//     try {
+//         if (fn == 1) {
+//             result = await del.deleteProblem(data);
+//             result.status = 200;
+//             res.json(result);
+//         }
+//         if (fn == 2) {
+//             result = await del.deleteUser(data);
+//             result.status = 200;
+//             res.json(result);
+//         }
+//     } catch (err) {
+//         err.status = 401;
+//         res.json(err);
+//     }
+// });
 app.post('/api/data/update/problems', bodyParser, async (req, res) => {
     var title = req.body.title;
     var description = req.body.description;
     var location = req.body.location;
+    var category = req.body.category;
     var result;
     try {
-        result = await update.updateProblem(title, description, location);
+        result = await update.updateProblem(category, title, description, location);
         result.status = 200;
         res.json(result);
     } catch (err) {
