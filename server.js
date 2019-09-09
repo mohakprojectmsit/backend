@@ -17,6 +17,8 @@ const port = 8080 | process.env.PORT;
 
 app.use(cors());
 
+//TODO: Test All Hasura APi's
+
 app.post('/api/auth/login', bodyParser, async (req, res) => {
     var email = req.body.email;
     var password = req.body.password;
