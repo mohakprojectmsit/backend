@@ -67,7 +67,7 @@ const getUserid = async (ph_number) => {
 };
 const feed = async () => {
     const query = `{
-      ProblemUser(limit: 10, order_by: {time: desc}) {
+      ProblemUser(limit: 100, order_by: {time: desc}) {
         category
         description
         email
